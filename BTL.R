@@ -27,14 +27,8 @@ colSums(is.na(BRCA))  # Kiểm tra lại NA
 BRCA$Tumour_Stage <- as.factor(BRCA$Tumour_Stage)
 BRCA$Patient_Status <- as.factor(BRCA$Patient_Status)
 
-# Mã hóa Tumour_Stage thành dummy
-BRCA$Tumour_Stage_I <- ifelse(BRCA$Tumour_Stage == "I", 1, 0)
-BRCA$Tumour_Stage_II <- ifelse(BRCA$Tumour_Stage == "II", 1, 0)
-BRCA$Tumour_Stage_III <- ifelse(BRCA$Tumour_Stage == "III", 1, 0)
-
 # Tạo tập dữ liệu
 new_data <- BRCA[, c("Age", "Protein1", "Protein2", "Protein3", "Protein4", 
-                     "Tumour_Stage_I", "Tumour_Stage_II", "Tumour_Stage_III", 
                      "Tumour_Stage", "Patient_Status")]
 head(new_data)
 write.csv(new_data, "BRCA_processed.csv", row.names = FALSE)
@@ -78,8 +72,7 @@ write.csv(tumour_table, "tumour_stage_freq.csv")
 write.csv(status_table, "patient_status_freq.csv")
 
 # Chuẩn bị dữ liệu cho K-means
-data_for_clustering <- new_data[, c("Age", "Protein1", "Protein2", "Protein3", "Protein4", 
-                                    "Tumour_Stage_I", "Tumour_Stage_II", "Tumour_Stage_III")]
+data_for_clustering <- new_data[, c("Age", "Protein1", "Protein2", "Protein3", "Protein4")]
 
 # Kiểm tra NA và sd
 colSums(is.na(data_for_clustering))  # Phải trả về 0
